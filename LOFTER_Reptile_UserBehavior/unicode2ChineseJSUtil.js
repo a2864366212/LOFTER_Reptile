@@ -1,0 +1,1 @@
+function unicode2Chinese(str){return unescape(str.replace(/\u/g, "%u"));}

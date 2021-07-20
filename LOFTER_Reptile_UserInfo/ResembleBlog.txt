@@ -1,0 +1,4 @@
+//#DWR-INSERT
+//#DWR-REPLY
+var s0=[];
+dwr.engine._remoteHandleCallback('599819','0',{blogname:"yiwangbaize",askSetting:0,publicPostCount:0,avaImg:"https://avaimg.lf127.net/img/dWQvR04weUdyK3JrbGdLUU1UbDFWTHgvcWlSVS9PbDBrVlNDc2xXSmlwdEl0ZllwSDRUM3h3PT0.jpg",postList:s0,following:false,name:"\u4E00\u6C6A\u767D\u6CFD\u4E37",msgRank:1,inBlackList:false,followerCount:6,shieldRecomCode:0,FavoritePostCount:238});

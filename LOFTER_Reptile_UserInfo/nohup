@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "gettags.py", line 18, in <module>
+    nein = open("./usr-urls/" + str(uid) + ".txt", "r", encoding="utf-8")
+FileNotFoundError: [Errno 2] No such file or directory: './usr-urls/520965766.txt'
