@@ -44,7 +44,7 @@
 函数说明
 
 函数名 | 参数                           | 返回值 | 解释 
-- | - | -|- 
+:- | - | -|- 
 download_file | url: string,store_path: string | None | 传入HotsPicture的url，下载图片资源存储到指定的store_path 
 
 ### lofterBlogReq.py
@@ -60,7 +60,7 @@ postReqNum | num:int,step=5:int, tag="表情包": string | None | 对postReq函�
 ### lofterHotsList.py函数说明
 
 函数名 | 参数                           | 返回值 | 解释 | 参数说明 
-- | - | -|- |- 
+:- | - | -|- |- 
 postReqHotsList | rootPath: string, postid:int, blogid:int, blogNum:int, lastIdx:int, sleepTime=4:float, debugMode=False: bool, tag="表情包": string | None | 获取某一帖子的热度列表（其实是其他用户的收藏、转发、点赞行为）。请求的帖子范围为[lastIdx,lastIdx+blogNum]，数目为blogNum |rootPath: 结果文件的根目录; postid:帖子id; blogid:博客id; blogNum: 请求的blog_post_hotsList总数; lastIdx: 已经请求的 blog_post_hotsList数目; sleepTime: 睡眠一段时间的反爬虫策略; debugMode: debug信息输出控制参数; tag="表情包": 请求标签
 reqDWRfileOfHots | rootPath: string, targetBlogUrlsFile= "blogPageUrl.txt": string, blogNum:int, step=100: int, sleepTime=4:float, tag="表情包": string | None | postReqHotsList的高一级别封装。以step步长循环请求tag标签下各个帖子的热度列表，总共请求blogNum个帖子。其中各个帖子的url由targetBlogUrlsFile指定 |rootPath: 结果文件的根目录; targetBlogUrlsFile:存储某标签下的各个帖子的url; blogNum: 请求的blog_post_hotsList总数; ttstep=100: 请求的步长; sleepTime: 睡眠一段时间的反爬虫策略; tag="表情包": 请求标签
 
@@ -69,7 +69,7 @@ reqDWRfileOfHots | rootPath: string, targetBlogUrlsFile= "blogPageUrl.txt": stri
 函数说明
 
 函数名 | 参数                           | 返回值 | 解释 | 参数说明 
-- | - | -|- |- 
+:- | - | -|- |- 
 模板 | 模板 | 模板 | 模板 |模板
 
 
@@ -78,7 +78,7 @@ reqDWRfileOfHots | rootPath: string, targetBlogUrlsFile= "blogPageUrl.txt": stri
 函数说明
 
 函数名 | 参数                           | 返回值 | 解释 | 参数说明 
-- | - | -|- |- 
+:- | - | -|- |- 
 模板 | 模板 | 模板 | 模板 |模板
 
 
@@ -86,7 +86,7 @@ reqDWRfileOfHots | rootPath: string, targetBlogUrlsFile= "blogPageUrl.txt": stri
 函数说明
 
 函数名 | 参数                           | 返回值 | 解释 | 参数说明 
-- | - | -|- |- 
+:- | - | -|- |- 
 模板 | 模板 | 模板 | 模板 |模板
 
 ### parseDWRUtil.py
@@ -94,7 +94,7 @@ reqDWRfileOfHots | rootPath: string, targetBlogUrlsFile= "blogPageUrl.txt": stri
 函数说明
 
 函数名 | 参数                           | 返回值 | 解释 | 参数说明 
-- | - | -|- |- 
+:- | - | -|- |- 
 parseDWRFile | keyword: string, input_path: string, output_file: string, flag: int | None | 解析dwr文件，将含有keyword的行数据写入到output_file中。可以理解为一个filter |keyword: 在文件中搜索的目标关键字; input_path: 输入文件路径; output_file: 输出文件路径; flag: 结果写入方式，1表示末尾追加、0表示覆写
 parseMultiAttr | attrList: List[string], input_path: string, output_file: string, flag: int | None | parseDWRFile的高一级封装。传入一组keyword，即attrList。将所有keyword在input_path文件中的数据写入到output_file中。 |attrList: 在文件中搜索的目标关键字数组; input_path: 输入文件路径; output_file: 输出文件路径; flag: 结果写入方式，1表示末尾追加、0表示覆写
 parseDWRFilesOfDir | rootPath: string, dirInfoFilepath: string , attrList: List[String], flag: int | None | parseMultiAttr的高一级别封装。传入一组keyword，解析某文件夹下的所有dwr文件，将数据分别写入到对应的{dwrfileName}_Parhot.txt结果文件中 |rootPath: 输入输出文件的根目录; dirInfoFilepath: 待解析文件夹所在路径 ; attrList: 在文件中搜索的目标关键字数组; flag: 结果写入方式，1表示末尾追加、0表示覆写
