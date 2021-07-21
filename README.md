@@ -1,4 +1,4 @@
-# 	LOFTER_Reptile
+LOFTER_Reptile
 
 网易乐乎LOFTER的爬取工具，提供待爬取的目标标签，得到对应博主和评论者的社交数据
 
@@ -17,6 +17,7 @@
 |   |   |--main_user_publish.py
 |   |   |--main_userinfo_behaviorlog.py
 |   |   |--parseDWRUtil.py
+|   |   |--uploadDataToDb.py
 
 |   |-- LOFTER_Reptile_UserInfo
 |   |   |--
@@ -28,13 +29,19 @@
 
 ### 调用时序图
 
-```
+**getUserInfoJsonByTag(tag):**
+
+```python
 传入tag
 ->main_userinfo_behaviorlog.getUserInfoJsonByTag(tag)
 ->main_userinfo_behaviorlog.initFile()
 ->lofterBlogReq.postReqNum(num=1500, step=100, tag=tag)
 ->parseDWRUtil.parseMultiAttr(parseDWRUtil.oneAttr, input_path="./lofterPost.txt",output_file="blogPageUrl.txt", flag=0)
-->
+->lofterHotsList.reqDWRfileOfHots(rootPath="./PostHots/", targetBlogUrlsFile=targetBlogUrlsFile,blogNum=10000, step=100, tag=tag,sleepTime=sleepTime)
+->lofterParseHotsDWR.genDirFileInfo(rootPath="./PostHots/",listFile="dirInfo.txt")
+->parseDWRUtil.parseDWRFilesOfDir(rootPath="./PostHots/", dirInfoFilepath="./PostHots/dirInfo.txt",attrList=parseDWRUtil.attrList, flag=1)
+->lofterParseHotsDWR.getAllUserBehaviorLog()                      
+
 ```
 
 
@@ -57,7 +64,9 @@ getReqTest | tag: string | None | 测试乐乎网站对于某一tag的请求，�
 postReq | blogNum: int, lastIdx : int, sleepTime=0.5:float, tag="表情包": string | None | 根据传入的"tag"，请求对应标签的帖子，获得某一 .dwr文件，将dwr文件内容末尾追加到"lofterPost.txt"文件中。请求的帖子范围为[lastIdx,lastIdx+blogNum]，数目为blogNum | blogNum: 请求帖子总数; lastIdx : 已请求帖子数; sleepTime=0.5:睡眠一段时间的反爬虫策略; tag="表情包": 待请求标签 
 postReqNum | num:int,step=5:int, tag="表情包": string | None | 对postReq函数的高一级别封装。以step步长循环请求tag标签下的帖子，总共请求num个帖子 | num: 请求帖子总数；step=5: 请求步长；tag="表情包": 请求标签 
 
-### lofterHotsList.py函数说明
+### lofterHotsList.py
+
+函数说明
 
 函数名 | 参数                           | 返回值 | 解释 | 参数说明 
 :- | - | -|- |- 
@@ -72,23 +81,25 @@ reqDWRfileOfHots | rootPath: string, targetBlogUrlsFile= "blogPageUrl.txt": stri
 :- | - | -|- |- 
 模板 | 模板 | 模板 | 模板 |模板
 
-
-
-### main_user_publish.py
-函数说明
-
-函数名 | 参数                           | 返回值 | 解释 | 参数说明 
-:- | - | -|- |- 
-模板 | 模板 | 模板 | 模板 |模板
-
-
 ### main_userinfo_behaviorlog.py
+
 函数说明
 
 函数名 | 参数                           | 返回值 | 解释 | 参数说明 
 :- | - | -|- |- 
-模板 | 模板 | 模板 | 模板 |模板
+getUserInfoJsonByTag | tag: string | None | 调用一系列高级别封装的函数，获取指定tag下的用户行为数据，以json格式存储到文件中 |tag: 请求标签
+getTagList | TagsFile: string | list(set(tagsList)) | 传入存有多个标签的文件路径，读取文件中的标签，去重后返回标签序列。标签文件中一行可含有多个标签，需以英文逗号分隔。 |TagsFile:存有多个标签的文件路径
+autoGetTagListInfo | None | None | getUserInfoJsonByTag的高一级封装。从标签文件中读取数据，得到标签序列，获取所有序列中所有标签对应的用户行为数据。 |None
+### uploadDataToDb.py
 
+函数说明
+
+函数名 | 参数                           | 返回值 | 解释 | 参数说明 
+:- | - | -|- |- 
+calTagsFreq | filePath: string, outPutFilePath: string, needToSave: bool | None | 统计爬取的用户行为数据的标签-频率分布 |filePath: 标签文件; outPutFilePath: 输出文件保存路径; needToSave: 是否需要保存到文件中，为1写入到文件中
+ readJsonData | filePath, outPutFilePath, needToSave=False, readLines=True, MAX_LINE=5000000 | Dataframe |  |
+ uploadToMySQLDb （还未实现） |  |  | 将本地格式化后的数据上传大Mysql数据库中 |
+ getTagList | filePath: string, outPutFilePath: string, needToSave: bool | df['tag'] | 将输入的用户行为信息转化为df,从df中获取df['tag'] |filePath: 用户行为信息文件; outPutFilePath: 输出文件保存路径; needToSave: 是否需要保存到文件中，为1写入到文件中
 ### parseDWRUtil.py
 
 函数说明
@@ -117,8 +128,6 @@ attrList=[
 	]
 oneAttr=[".blogPageUrl"]
 ```
-
-
 
 ## LOFTER_Reptile_UserInfo
 
