@@ -6,7 +6,7 @@ import lofterParseHotsDWR
 import uploadDataToDb
 import parseDWRUtil
 import os, sys
-
+import pandas as pd
 
 sleepTime=0
 targetBlogUrlsFile="blogPageUrl.txt"
@@ -95,7 +95,9 @@ def getTagList(TagsFile):
 def autoGetTagListInfo():
     #0~1000 Tag
     endTagsIdx=1000
+
     with open("tagsReqResult.txt",'r',encoding='utf-8') as file:
+        #checkPoint 从断点继续
         begin=file.readline().strip()
         begin=int(begin)
     with open("tagsReq.txt",'r',encoding='utf-8') as file:
@@ -110,11 +112,9 @@ def autoGetTagListInfo():
                 res.write(str(i))
 
 # getUserInfoJsonByTag("表情包")
-uploadDataToDb.readJsonData(filePath='./PostHotsResult/allUserBehaviorLogJson.txt',outPutFilePath='./PostHotsResult/allUserBehaviorLog.csv',needToSave=True)
-uploadDataToDb.getTagList(inputFile='./PostHotsResult/allUserBehaviorLog.csv',needToSave=True)
-lofterParseHotsDWR.unicodeToChineseFile(inputFile="./PostHotsResult/EmojiTags.csv",outputFile="./PostHotsResult/EmojiSITTags.txt")
-uploadDataToDb.calTagsFreq(needToSave=True)
+# uploadDataToDb.readJsonData(filePath='./PostHotsResult/allUserBehaviorLogJson.txt',outPutFilePath='./PostHotsResult/allUserBehaviorLog.csv',needToSave=True)
+# uploadDataToDb.getTagList(inputFile='./PostHotsResult/allUserBehaviorLog.csv',needToSave=True)
+# lofterParseHotsDWR.unicodeToChineseFile(inputFile="./PostHotsResult/EmojiTags.csv",outputFile="./PostHotsResult/EmojiSITTags.txt")
+# uploadDataToDb.calTagsFreq(needToSave=True)
 
-'''
-test for network loss delay
-'''
+

@@ -59,6 +59,7 @@ def unicodeToChineseStr(text):
     #去除emoji 对应的unicode编码
     # 过滤表情
     return text.encode('utf-8', 'replace').decode('unicode_escape')
+
 def unicodeToChineseFile(inputFile,outputFile):
     processedTextArr=[]
     with open(inputFile,'r') as file:
@@ -204,7 +205,7 @@ def getAllUrls():
             line=file.readline().strip()
             if(len(line)==0):break
             filePath=line
-            Si_Attr_Val2DictAndGetUrl(filePath=filePath,debugEncodeMode=False)
+            Si_Attr_Val2DictAndGetUrl(filePath=filePath,debugEncodeMode=False,needGetUrl=True)
 
 
 def getAllUserInfo(dirInfo_ParhotFilePath="./PostHots/dirInfo_Parhot.txt",
